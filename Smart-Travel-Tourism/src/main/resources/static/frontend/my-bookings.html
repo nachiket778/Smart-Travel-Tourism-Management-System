@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Bookings - Smart Travel</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .bookings-page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 70px 25px;
+        }
+
+        .booking-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+        }
+
+        .booking-card h3 {
+            color: #1688e5;
+            margin-bottom: 15px;
+        }
+
+        .booking-card p {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 7px 14px;
+            border-radius: 20px;
+            background: #e8f7ee;
+            color: green;
+            font-weight: bold;
+        }
+
+        .loading {
+            text-align: center;
+            color: #777;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar">
+       <div class="logo">
+    <img src="images/logo.png" alt="SmartTravel Logo">
+    <span class="brand-text">Smart<span>Travel</span></span>
+</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="booking.html">Book Now</a></li>
+            <li><a href="my-bookings.html">My Bookings</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="bookings-page">
+
+    <div class="section-title">
+        <p>MY TRAVEL BOOKINGS</p>
+        <h2>Your Bookings</h2>
+    </div>
+
+    <div id="bookingContainer">
+        <p class="loading">Loading bookings...</p>
+    </div>
+
+</section>
+
+<footer>
+    <div class="footer-content">
+
+        <div>
+            <h2>Smart<span>Travel</span></h2>
+            <p>
+                Your smart companion for planning and booking
+                unforgettable journeys.
+            </p>
+        </div>
+
+        <div>
+            <h3>Quick Links</h3>
+            <a href="index.html">Home</a>
+            <a href="packages.html">Packages</a>
+            <a href="booking.html">Booking</a>
+            <a href="login.html">Login</a>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 Smart Travel & Tourism Management System
+    </div>
+</footer>
+
+<script>
+
+fetch("http://localhost:8080/api/bookings")
+
+.then(response => response.json())
+
+.then(bookings => {
+
+    const container = document.getElementById("bookingContainer");
+
+    container.innerHTML = "";
+
+    if (bookings.length === 0) {
+
+        container.innerHTML =
+            "<p class='loading'>No bookings found.</p>";
+
+        return;
+    }
+
+    bookings.forEach(booking => {
+
+        container.innerHTML += `
+
+            <div class="booking-card">
+
+                <h3>Booking #${booking.id}</h3>
+
+                <p>
+                    <strong>Customer:</strong>
+                    ${booking.customerName}
+                </p>
+
+                <p>
+                    <strong>Package:</strong>
+                    ${booking.packageName}
+                </p>
+
+                <p>
+                    <strong>Travel Date:</strong>
+                    ${booking.travelDate}
+                </p>
+
+                <p>
+                    <strong>Number of People:</strong>
+                    ${booking.numberOfPeople}
+                </p>
+
+                <p>
+                    <strong>Total Amount:</strong>
+                    ₹${booking.totalAmount}
+                </p>
+
+                <span class="status">
+                    ${booking.status}
+                </span>
+
+            </div>
+
+        `;
+
+    });
+
+})
+
+.catch(error => {
+
+    console.error(error);
+
+    document.getElementById("bookingContainer").innerHTML =
+        "<p class='loading'>Unable to load bookings.</p>";
+
+});
+
+</script>
+
+</body>
+</html>

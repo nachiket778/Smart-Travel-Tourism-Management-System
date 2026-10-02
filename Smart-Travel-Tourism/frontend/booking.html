@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Your Trip - Smart Travel</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .booking-page {
+            max-width: 1000px;
+            margin: auto;
+            padding: 70px 25px;
+        }
+
+        .booking-box {
+            background: white;
+            max-width: 650px;
+            margin: auto;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.12);
+        }
+
+        .booking-box h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .total-box {
+            background: #f1f8ff;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .total-box h3 {
+            color: #1688e5;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 7px;
+            background: #1688e5;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .confirm-btn:hover {
+            background: #0d6fbe;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar">
+
+       <div class="logo">
+    <img src="images/logo.png" alt="SmartTravel Logo">
+    <span class="brand-text">Smart<span>Travel</span></span>
+</div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="booking.html">Book Now</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html" class="nav-btn">Register</a></li>
+        </ul>
+
+    </nav>
+</header>
+
+
+<section class="booking-page">
+
+    <div class="section-title">
+        <p>BOOK YOUR TRIP</p>
+        <h2>Complete Your Booking</h2>
+    </div>
+
+    <div class="booking-box">
+
+        <h2>Travel Details</h2>
+
+        <form id="bookingForm">
+
+            <div class="form-group">
+
+                <label>Customer Name</label>
+
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Enter your name"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Tour Package</label>
+
+                <select id="packageName" required>
+
+                    <option value="">
+                        Select Package
+                    </option>
+
+                    <option value="Goa Beach Escape"
+                            data-price="7999">
+                        Goa Beach Escape - ₹7,999
+                    </option>
+
+                    <option value="Manali Adventure Trip"
+                            data-price="9999">
+                        Manali Adventure Trip - ₹9,999
+                    </option>
+
+                    <option value="Dubai City Tour"
+                            data-price="24999">
+                        Dubai City Tour - ₹24,999
+                    </option>
+
+                    <option value="Andaman Island Holiday"
+                            data-price="19999">
+                        Andaman Island Holiday - ₹19,999
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Travel Date</label>
+
+                <input
+                    type="date"
+                    id="travelDate"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Number of People</label>
+
+                <input
+                    type="number"
+                    id="numberOfPeople"
+                    min="1"
+                    value="1"
+                    required>
+
+            </div>
+
+
+            <div class="total-box">
+
+                <p>Total Amount</p>
+
+                <h3 id="totalAmount">
+                    ₹0
+                </h3>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="confirm-btn">
+
+                Confirm Booking
+
+            </button>
+
+        </form>
+
+
+        <div id="message"></div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+
+            <h2>
+                Smart<span>Travel</span>
+            </h2>
+
+            <p>
+                Your smart companion for planning and booking
+                unforgettable journeys.
+            </p>
+
+        </div>
+
+        <div>
+
+            <h3>Quick Links</h3>
+
+            <a href="index.html">Home</a>
+            <a href="packages.html">Packages</a>
+            <a href="booking.html">Booking</a>
+            <a href="login.html">Login</a>
+
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 Smart Travel & Tourism Management System
+    </div>
+
+</footer>
+
+
+<script>
+
+    const packageSelect =
+        document.getElementById("packageName");
+
+    const peopleInput =
+        document.getElementById("numberOfPeople");
+
+    const totalAmount =
+        document.getElementById("totalAmount");
+
+
+    function calculateTotal() {
+
+        const selected =
+            packageSelect.options[
+                packageSelect.selectedIndex
+            ];
+
+        const price =
+            Number(selected.dataset.price || 0);
+
+        const people =
+            Number(peopleInput.value || 1);
+
+        const total =
+            price * people;
+
+        totalAmount.innerText =
+            "₹" + total.toLocaleString("en-IN");
+    }
+
+
+    packageSelect.addEventListener(
+        "change",
+        calculateTotal
+    );
+
+    peopleInput.addEventListener(
+        "input",
+        calculateTotal
+    );
+
+
+    document.getElementById("bookingForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const booking = {
+
+                customerName:
+                    document.getElementById(
+                        "customerName"
+                    ).value,
+
+                packageName:
+                    packageSelect.value,
+
+                travelDate:
+                    document.getElementById(
+                        "travelDate"
+                    ).value,
+
+                numberOfPeople:
+                    Number(
+                        peopleInput.value
+                    ),
+
+                totalAmount:
+                    Number(
+                        packageSelect
+                        .options[
+                            packageSelect.selectedIndex
+                        ].dataset.price
+                    ) *
+                    Number(peopleInput.value),
+
+                status:
+                    "CONFIRMED"
+            };
+
+
+            fetch(
+                "http://localhost:8080/api/bookings",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(booking)
+                }
+            )
+
+            .then(response => {
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Booking failed"
+                    );
+                }
+
+                return response.json();
+
+            })
+
+            .then(data => {
+
+                document.getElementById(
+                    "message"
+                ).innerHTML =
+                    "✅ Booking Confirmed! Booking ID: "
+                    + data.id;
+
+                document.getElementById(
+                    "bookingForm"
+                ).reset();
+
+                totalAmount.innerText =
+                    "₹0";
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                document.getElementById(
+                    "message"
+                ).innerHTML =
+                    "❌ Booking failed. Please start the Java backend.";
+
+            });
+
+        });
+
+</script>
+
+</body>
+</html>
