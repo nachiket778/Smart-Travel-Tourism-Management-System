@@ -390,7 +390,7 @@ document.getElementById("packageForm")
 
 function loadPackages() {
 
-    fetch("http://localhost:8080/api/packages")
+    fetch("/api/packages")
 
     .then(response => response.json())
 
@@ -612,8 +612,7 @@ function resetForm() {
 
 /* LOAD BOOKINGS */
 
-fetch("http://localhost:8080/api/bookings")
-
+fetch("/api/bookings")
 .then(response => response.json())
 
 .then(bookings => {

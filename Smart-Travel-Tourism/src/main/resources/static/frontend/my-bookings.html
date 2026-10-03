@@ -110,8 +110,7 @@
 
 <script>
 
-fetch("http://localhost:8080/api/bookings")
-
+fetch("/api/bookings")
 .then(response => response.json())
 
 .then(bookings => {
@@ -220,9 +219,9 @@ function cancelBooking(id) {
         return;
     }
 
-    fetch("http://localhost:8080/api/bookings/" + id + "/cancel", {
-        method: "PUT"
-    })
+    fetch("/api/bookings/" + id + "/cancel", {
+    method: "PUT"
+})
 
     .then(response => {
 
