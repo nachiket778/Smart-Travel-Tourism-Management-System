@@ -54,12 +54,12 @@
             margin-bottom: 10px;
         }
 
-        .package-price {
-            color: #1688e5;
-            font-size: 24px;
-            font-weight: bold;
-            margin: 15px 0;
-        }
+       .package-price {
+    color: #222;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 15px 0;
+}
 
         .book-btn {
             display: inline-block;
@@ -104,10 +104,11 @@
 <header>
     <nav class="navbar"> 
 
-<div class="logo">
-    <img src="images/logo.png" alt="SmartTravel Logo">
-    <span class="brand-text">Smart<span>Travel</span></span>
+        <div class="logo">
+    <div class="logo-image"></div>
+    Smart<span>Travel</span>
 </div>
+
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="packages.html">Packages</a></li>
@@ -176,121 +177,165 @@
 const searchParams = new URLSearchParams(window.location.search);
 const searchText = (searchParams.get("search") || "").trim().toLowerCase();
 
-    fetch("/api/packages")
+fetch("/api/packages")
 
-        .then(response => response.json())
+    .then(response => response.json())
 
-        .then(packages => {
+    .then(packages => {
 
-            const container =
-                document.getElementById("packageContainer");
+        const container =
+            document.getElementById("packageContainer");
 
-            container.innerHTML = "";
+        container.innerHTML = "";
 
-const filteredPackages = searchText
-    ? packages.filter(pkg =>
-        pkg.destination.toLowerCase().includes(searchText) ||
-        pkg.packageName.toLowerCase().includes(searchText)
-    )
-    : packages;
+        const filteredPackages = searchText
+            ? packages.filter(pkg =>
+                pkg.destination.toLowerCase().includes(searchText) ||
+                pkg.packageName.toLowerCase().includes(searchText)
+            )
+            : packages;
 
-if (filteredPackages.length === 0) {
+        if (filteredPackages.length === 0) {
 
-    container.innerHTML = `
-        <p class="error" style="grid-column: 1 / -1; color: #555;">
-            No packages found for "${searchText}".
-        </p>
-    `;
+            container.innerHTML = `
+                <p class="error" style="grid-column: 1 / -1; color: #555;">
+                    No packages found for "${searchText}".
+                </p>
+            `;
 
-    return;
-}
+            return;
+        }
 
-filteredPackages.forEach(pkg => {
+        filteredPackages.forEach(pkg => {
 
-                let image = "";
+            let image = "";
 
-               if (pkg.destination.toLowerCase() === "goa") {
-                    image =
-                    "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80";
-                }
+            /* GOA */
+            if (pkg.destination.toLowerCase() === "goa") {
 
-                else if (pkg.destination.toLowerCase() === "manali") {
-                    image =
-                    "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80";
-                }
+                image =
+                "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80";
 
-                else if (pkg.destination.toLowerCase() === "dubai") {
-                    image =
-                    "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80";
-                }
+            }
 
-                else if (pkg.destination.toLowerCase() === "andaman") {
-                    image =
-                    "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80";
-                }
+            /* MANALI - SNOW MOUNTAINS */
+            else if (pkg.destination.toLowerCase() === "manali") {
 
-                container.innerHTML += `
+                image =
+                "https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=800&q=80";
 
-                    <div class="package-card">
+            }
 
-                        <div
-                            class="package-image"
-                            style="background-image:
-                            url('${image}')">
+            /* DUBAI */
+            else if (pkg.destination.toLowerCase() === "dubai") {
+
+                image =
+                "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80";
+
+            }
+
+            /* ANDAMAN */
+            else if (pkg.destination.toLowerCase() === "andaman") {
+
+                image =
+                "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80";
+
+            }
+
+            /* JAIPUR */
+            else if (pkg.destination.toLowerCase() === "jaipur") {
+
+                image =
+                "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=800&q=80";
+
+            }
+
+            /* KASHMIR */
+            else if (pkg.destination.toLowerCase() === "kashmir") {
+
+                image =
+                "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80";
+
+            }
+
+            /* KERALA */
+            else if (pkg.destination.toLowerCase() === "kerala") {
+
+                image =
+                "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=800&q=80";
+
+            }
+
+            /* PARIS */
+            else if (pkg.destination.toLowerCase() === "paris") {
+
+                image =
+                "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80";
+
+            }
+
+            container.innerHTML += `
+
+                <div class="package-card">
+
+                    <div
+                        class="package-image"
+                        style="background-image:
+                        url('${image}')">
+                    </div>
+
+                    <div class="package-content">
+
+                        <h3>
+                            ${pkg.packageName}
+                        </h3>
+
+                        <p>
+                            📍 ${pkg.destination}
+                        </p>
+
+                        <p>
+                            🕒 ${pkg.duration}
+                        </p>
+
+                        <p>
+                            ${pkg.description}
+                        </p>
+
+                        <div class="package-price">
+                            ₹${Number(pkg.price).toLocaleString('en-IN')}
                         </div>
 
-                        <div class="package-content">
-
-                            <h3>
-                                ${pkg.packageName}
-                            </h3>
-
-                            <p>
-                                📍 ${pkg.destination}
-                            </p>
-
-                            <p>
-                                🕒 ${pkg.duration}
-                            </p>
-
-                            <p>
-                                ${pkg.description}
-                            </p>
-
-                            <div class="package-price">
-                                ₹${pkg.price}
-                            </div>
-
-                            <a
-                                href="booking.html?package=${encodeURIComponent(pkg.packageName)}"
-                                class="book-btn">
-                                Book Now
-                            </a>
-
-                        </div>
+                        <a
+                            href="booking.html?package=${encodeURIComponent(pkg.packageName)}"
+                            class="book-btn">
+                            Book Now
+                        </a>
 
                     </div>
 
-                `;
-
-            });
-
-        })
-
-        .catch(error => {
-
-            console.error(error);
-
-            document.getElementById("packageContainer").innerHTML = `
-
-                <p class="error">
-                    Unable to load packages.
-                    Please start the Java backend.
-                </p>
+                </div>
 
             `;
 
         });
+
+    })
+
+    .catch(error => {
+
+        console.error(error);
+
+        document.getElementById("packageContainer").innerHTML = `
+
+            <p class="error">
+                Unable to load packages.
+                Please start the Java backend.
+            </p>
+
+        `;
+
+    });
 
 </script>
 

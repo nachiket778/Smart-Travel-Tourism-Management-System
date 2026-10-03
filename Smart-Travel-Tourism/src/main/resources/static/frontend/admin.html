@@ -111,15 +111,25 @@
             border-bottom: none;
         }
 
-        .status {
-            display: inline-block;
-            margin-top: 8px;
-            padding: 6px 12px;
-            border-radius: 15px;
-            background: #e8f7ee;
-            color: green;
-            font-weight: bold;
-        }
+              .status-cancelled {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 12px;
+    border-radius: 15px;
+    background: #fde8e8;
+    color: #d9534f;
+    font-weight: bold;
+}
+
+.status-confirmed {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 12px;
+    border-radius: 15px;
+    background: #e8f7ee;
+    color: green;
+    font-weight: bold;
+}
 
         .loading {
             color: #777;
@@ -132,9 +142,9 @@
 
 <header>
     <nav class="navbar">
-      <div class="logo">
-    <img src="images/logo.png" alt="SmartTravel Logo">
-    <span class="brand-text">Smart<span>Travel</span></span>
+     <div class="logo">
+    <div class="logo-image"></div>
+    Smart<span>Travel</span>
 </div>
 
         <ul class="nav-links">
@@ -652,14 +662,29 @@ fetch("http://localhost:8080/api/bookings")
                 </p>
 
                 <p>
-                    Total:
-                    ₹${booking.totalAmount}
-                </p>
+    <strong>Total:</strong>
+    ₹${booking.totalAmount}
+</p>
 
-                <span class="status">
-                    ${booking.status}
-                </span>
+<p>
+    <strong>Payment Method:</strong>
+    ${booking.paymentMethod || "Not Available"}
+</p>
 
+<p>
+    <strong>Payment Status:</strong>
+    ${booking.paymentStatus || "Not Available"}
+</p>
+
+<span class="${
+    booking.status === "CANCELLED"
+        ? "status-cancelled"
+        : "status-confirmed"
+}">
+    ${booking.status === "CANCELLED"
+        ? "❌ CANCELLED"
+        : "✅ CONFIRMED"}
+</span>
             </div>
 
         `;

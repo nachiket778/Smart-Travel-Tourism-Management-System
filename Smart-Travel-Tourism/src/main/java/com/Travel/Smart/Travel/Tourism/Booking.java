@@ -18,6 +18,8 @@ public class Booking {
     private int numberOfPeople;
     private double totalAmount;
     private String status;
+    private String paymentMethod;
+    private String paymentStatus;
 
     public Booking() {
     }
@@ -84,4 +86,21 @@ public class Booking {
     public void setStatus(String status) {
         this.status = status;
     }
-}
+    
+    public String getPaymentMethod() {
+    return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+    this.paymentMethod = paymentMethod;
+    }
+
+    public String getPaymentStatus() {
+     return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+    this.paymentStatus = paymentStatus;
+    }
+    
+    }

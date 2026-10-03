@@ -9,60 +9,290 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
+        /* =========================
+           LOGIN PAGE
+        ========================= */
+
         .login-page {
-            max-width: 1000px;
-            margin: auto;
-            padding: 70px 25px;
+            min-height: 72vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            background: linear-gradient(
+                135deg,
+                #f5faff 0%,
+                #eef7ff 50%,
+                #ffffff 100%
+            );
+            box-sizing: border-box;
         }
 
-        .login-box {
-            max-width: 550px;
-            margin: auto;
-            background: white;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.12);
-        }
-
-        .login-box h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .form-group input {
+        .login-container {
             width: 100%;
-            padding: 13px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
+            max-width: 950px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #ffffff;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+        }
+
+        /* LEFT SIDE */
+
+        .login-info {
+            position: relative;
+            min-height: 520px;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            background:
+                linear-gradient(
+                    rgba(0, 80, 150, 0.78),
+                    rgba(0, 120, 210, 0.78)
+                ),
+                url("images/login-bg.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .login-info h1 {
+            font-size: 42px;
+            line-height: 1.15;
+            margin: 0 0 18px;
+        }
+
+        .login-info h1 span {
+            color: #8ed0ff;
+        }
+
+        .login-info p {
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 380px;
+            margin: 0 0 30px;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .travel-features {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .travel-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-size: 15px;
         }
 
-        .login-btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 7px;
-            background: #1688e5;
-            color: white;
+        .feature-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 16px;
-            font-weight: bold;
+        }
+
+        /* RIGHT SIDE */
+
+        .login-form-section {
+            padding: 50px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-heading {
+            margin-bottom: 28px;
+        }
+
+        .login-heading .small-title {
+            color: #1688e5;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .login-heading h2 {
+            margin: 0;
+            color: #172033;
+            font-size: 32px;
+        }
+
+        .login-heading p {
+            margin: 9px 0 0;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .login-form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #303846;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 17px;
+            color: #8b95a5;
+            pointer-events: none;
+        }
+
+        .login-input {
+            width: 100%;
+            height: 50px;
+            padding: 0 45px;
+            border: 1px solid #dce1e8;
+            border-radius: 9px;
+            outline: none;
+            font-size: 14px;
+            color: #222;
+            background: #fafbfc;
+            box-sizing: border-box;
+            transition: 0.25s;
+        }
+
+        .login-input:focus {
+            background: white;
+            border-color: #1688e5;
+            box-shadow: 0 0 0 4px rgba(22, 136, 229, 0.10);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
             cursor: pointer;
+            font-size: 16px;
+            color: #777;
+        }
+
+        .password-toggle:hover {
+            color: #1688e5;
+        }
+
+        .login-button {
+            width: 100%;
+            height: 50px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #1688e5, #086fc1);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 5px 15px rgba(22, 136, 229, 0.25);
+        }
+
+        .login-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(22, 136, 229, 0.30);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
         }
 
         #message {
+            min-height: 22px;
+            margin-top: 18px;
             text-align: center;
-            margin-top: 20px;
-            font-weight: bold;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .register-text {
+            margin-top: 25px;
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .register-text a {
+            color: #1688e5;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .register-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 750px) {
+
+            .login-container {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .login-info {
+                min-height: 260px;
+                padding: 35px;
+            }
+
+            .login-info h1 {
+                font-size: 32px;
+            }
+
+            .travel-features {
+                display: none;
+            }
+
+            .login-form-section {
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            .login-page {
+                padding: 30px 12px;
+            }
+
+            .login-info {
+                padding: 30px 25px;
+            }
+
+            .login-form-section {
+                padding: 35px 22px;
+            }
+
+            .login-info h1 {
+                font-size: 28px;
+            }
+
+            .login-heading h2 {
+                font-size: 27px;
+            }
         }
     </style>
 </head>
@@ -71,11 +301,11 @@
 
 <header>
     <nav class="navbar">
-       <div class="logo">
-    <img src="images/logo.png" alt="SmartTravel Logo">
-    <span class="brand-text">Smart<span>Travel</span></span>
-</div>
 
+       <div class="logo">
+    <div class="logo-image"></div>
+    Smart<span>Travel</span>
+</div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="packages.html">Packages</a></li>
@@ -83,57 +313,164 @@
             <li><a href="login.html">Login</a></li>
             <li><a href="register.html" class="nav-btn">Register</a></li>
         </ul>
+
     </nav>
 </header>
 
+
+<!-- LOGIN SECTION -->
+
 <section class="login-page">
 
-    <div class="section-title">
-        <p>WELCOME BACK</p>
-        <h2>Login to Smart Travel</h2>
-    </div>
+    <div class="login-container">
 
-    <div class="login-box">
+        <!-- LEFT -->
 
-        <h2>Login</h2>
+        <div class="login-info">
 
-        <form id="loginForm">
+            <h1>
+                Explore the world with
+                <span>SmartTravel</span>
+            </h1>
 
-            <div class="form-group">
-                <label>Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                    required>
+            <p>
+                Login to manage your trips, explore exciting
+                destinations and book your next unforgettable journey.
+            </p>
+
+            <div class="travel-features">
+
+                <div class="travel-feature">
+                    <div class="feature-icon">🌍</div>
+                    <span>Explore amazing destinations</span>
+                </div>
+
+                <div class="travel-feature">
+                    <div class="feature-icon">✈️</div>
+                    <span>Book your favourite tour packages</span>
+                </div>
+
+                <div class="travel-feature">
+                    <div class="feature-icon">🔒</div>
+                    <span>Manage your bookings easily</span>
+                </div>
+
             </div>
 
-            <div class="form-group">
-                <label>Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter your password"
-                    required>
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="login-form-section">
+
+            <div class="login-heading">
+
+                <div class="small-title">
+                    WELCOME BACK
+                </div>
+
+                <h2>Login to your account</h2>
+
+                <p>
+                    Enter your details to continue your journey.
+                </p>
+
             </div>
 
-            <button type="submit" class="login-btn">
-                Login
-            </button>
 
-        </form>
+            <form id="loginForm">
 
-        <div id="message"></div>
+                <div class="login-form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">✉</span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            class="login-input"
+                            placeholder="Enter your email"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="login-form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">🔒</span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            class="login-input"
+                            placeholder="Enter your password"
+                            required>
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()"
+                            aria-label="Show password">
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                    id="loginButton">
+
+                    Login to SmartTravel
+
+                </button>
+
+            </form>
+
+
+            <div id="message"></div>
+
+
+            <div class="register-text">
+
+                Don't have an account?
+                <a href="register.html">
+                    Create an account
+                </a>
+
+            </div>
+
+        </div>
 
     </div>
 
 </section>
 
+
 <footer>
+
     <div class="footer-content">
 
         <div>
             <h2>Smart<span>Travel</span></h2>
+
             <p>
                 Your smart companion for planning and booking
                 unforgettable journeys.
@@ -153,47 +490,140 @@
     <div class="copyright">
         © 2026 Smart Travel & Tourism Management System
     </div>
+
 </footer>
 
+
 <script>
+
+/* =========================
+   SHOW / HIDE PASSWORD
+========================= */
+
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    const button =
+        document.querySelector(".password-toggle");
+
+    if (password.type === "password") {
+
+        password.type = "text";
+        button.innerHTML = "🙈";
+
+    } else {
+
+        password.type = "password";
+        button.innerHTML = "👁";
+
+    }
+}
+
+
+/* =========================
+   LOGIN
+========================= */
 
 document.getElementById("loginForm")
 .addEventListener("submit", function(event) {
 
     event.preventDefault();
 
+    const email =
+        document.getElementById("email")
+        .value.trim();
+
+    const password =
+        document.getElementById("password")
+        .value;
+
+    const message =
+        document.getElementById("message");
+
+    const loginButton =
+        document.getElementById("loginButton");
+
+
+    message.style.color = "#555";
+
+    message.innerHTML =
+        "Logging in...";
+
+    loginButton.disabled = true;
+
+    loginButton.innerHTML =
+        "Logging in...";
+
+
     const user = {
-        email: document.getElementById("email").value,
-        password: document.getElementById("password").value
+        email: email,
+        password: password
     };
 
+
     fetch("http://localhost:8080/api/users/login", {
+
         method: "POST",
+
         headers: {
             "Content-Type": "application/json"
         },
+
         body: JSON.stringify(user)
+
     })
 
-    .then(response => response.json())
+    .then(response => {
+
+        if (!response.ok) {
+            throw new Error("Login request failed");
+        }
+
+        return response.json();
+
+    })
 
     .then(data => {
 
         if (data) {
 
-    document.getElementById("message").innerHTML =
-        "✅ Login successful! Welcome to SmartTravel";
+            localStorage.setItem(
+                "loggedInUser",
+                JSON.stringify(data)
+            );
 
-    localStorage.setItem("loggedInUser", JSON.stringify(data));
+            message.style.color = "green";
 
-    setTimeout(() => {
-        window.location.href = "index.html";
-    }, 1000);
+            message.innerHTML =
+                "✅ Login successful! Welcome, "
+                + data.name + "!";
 
-         } else {
+            loginButton.innerHTML =
+                "Login Successful ✓";
 
-            document.getElementById("message").innerHTML =
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "index.html";
+
+            }, 1200);
+
+
+        } else {
+
+            message.style.color =
+                "#d9534f";
+
+            message.innerHTML =
                 "❌ Invalid email or password.";
+
+            loginButton.disabled = false;
+
+            loginButton.innerHTML =
+                "Login to SmartTravel";
 
         }
 
@@ -203,8 +633,16 @@ document.getElementById("loginForm")
 
         console.error(error);
 
-        document.getElementById("message").innerHTML =
-            "❌ Login failed. Please start the Java backend.";
+        message.style.color =
+            "#d9534f";
+
+        message.innerHTML =
+            "🔒 Please login or register to book a tour package.";
+
+        loginButton.disabled = false;
+
+        loginButton.innerHTML =
+            "Login to SmartTravel";
 
     });
 

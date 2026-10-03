@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,273 +11,1293 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
+
+        /* =========================
+           REGISTER PAGE
+        ========================= */
+
         .register-page {
-            max-width: 1000px;
-            margin: auto;
-            padding: 70px 25px;
+
+            min-height: 72vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 60px 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5faff 0%,
+                    #eef7ff 50%,
+                    #ffffff 100%
+                );
+
+            box-sizing: border-box;
         }
 
-        .register-box {
-            max-width: 550px;
-            margin: auto;
-            background: white;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.12);
-        }
 
-        .register-box h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        .register-container {
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .form-group input {
             width: 100%;
-            padding: 13px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
+
+            max-width: 950px;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            background: #ffffff;
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.12);
+        }
+
+
+        /* =========================
+           LEFT SIDE
+           SAME STYLE AS LOGIN
+        ========================= */
+
+        .register-info {
+
+            min-height: 560px;
+
+            padding: 50px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            color: white;
+
+            background:
+
+                linear-gradient(
+                    rgba(0, 80, 150, 0.80),
+                    rgba(0, 120, 210, 0.80)
+                ),
+
+                url("images/login-bg.jpg");
+
+            background-size: cover;
+
+            background-position: center;
+        }
+
+
+        .register-info h1 {
+
+            font-size: 40px;
+
+            line-height: 1.15;
+
+            margin: 0 0 18px;
+        }
+
+
+        .register-info h1 span {
+
+            color: #8ed0ff;
+        }
+
+
+        .register-info p {
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            max-width: 380px;
+
+            margin: 0 0 30px;
+
+            color: rgba(255,255,255,0.92);
+        }
+
+
+        /* =========================
+           TRAVEL FEATURES
+        ========================= */
+
+        .travel-features {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 20px;
+        }
+
+
+        .travel-feature {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
             font-size: 15px;
         }
 
-        .register-btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 7px;
-            background: #1688e5;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
+
+        .feature-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.15);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+
+            flex-shrink: 0;
         }
 
-        .register-btn:hover {
-            background: #0d6fbe;
+
+        /* =========================
+           RIGHT SIDE
+        ========================= */
+
+        .register-form-section {
+
+            padding: 45px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
         }
+
+
+        .register-heading {
+
+            margin-bottom: 25px;
+        }
+
+
+        .register-heading .small-title {
+
+            color: #1688e5;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .register-heading h2 {
+
+            margin: 0;
+
+            color: #172033;
+
+            font-size: 32px;
+        }
+
+
+        .register-heading p {
+
+            margin: 9px 0 0;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .register-form-group {
+
+            margin-bottom: 18px;
+        }
+
+
+        .register-form-group label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #303846;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+        }
+
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: 17px;
+
+            color: #8b95a5;
+
+            pointer-events: none;
+        }
+
+
+        .register-input {
+
+            width: 100%;
+
+            height: 48px;
+
+            padding: 0 45px;
+
+            border: 1px solid #dce1e8;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            color: #222;
+
+            background: #fafbfc;
+
+            box-sizing: border-box;
+
+            transition: 0.25s;
+        }
+
+
+        .register-input:focus {
+
+            background: white;
+
+            border-color: #1688e5;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(22,136,229,0.10);
+        }
+
+
+        /* =========================
+           PASSWORD TOGGLE
+        ========================= */
+
+        .password-toggle {
+
+            position: absolute;
+
+            right: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
+            color: #777;
+        }
+
+
+        .password-toggle:hover {
+
+            color: #1688e5;
+        }
+
+
+        /* =========================
+           PASSWORD HINT
+        ========================= */
+
+        .password-hint {
+
+            margin-top: 7px;
+
+            font-size: 12px;
+
+            color: #888;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .register-button {
+
+            width: 100%;
+
+            height: 50px;
+
+            margin-top: 7px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1688e5,
+                    #086fc1
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+
+            box-shadow:
+                0 5px 15px
+                rgba(22,136,229,0.25);
+        }
+
+
+        .register-button:hover {
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(22,136,229,0.30);
+        }
+
+
+        .register-button:disabled {
+
+            opacity: 0.7;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =========================
+           MESSAGE
+        ========================= */
 
         #message {
+
+            min-height: 22px;
+
+            margin-top: 16px;
+
             text-align: center;
-            margin-top: 20px;
-            font-weight: bold;
+
+            font-size: 14px;
+
+            font-weight: 600;
         }
+
+
+        /* =========================
+           LOGIN LINK
+        ========================= */
+
+        .login-text {
+
+            margin-top: 22px;
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        .login-text a {
+
+            color: #1688e5;
+
+            text-decoration: none;
+
+            font-weight: 700;
+        }
+
+
+        .login-text a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 750px) {
+
+            .register-container {
+
+                grid-template-columns: 1fr;
+
+                max-width: 500px;
+            }
+
+
+            .register-info {
+
+                min-height: 260px;
+
+                padding: 35px;
+            }
+
+
+            .register-info h1 {
+
+                font-size: 32px;
+            }
+
+
+            .travel-features {
+
+                display: none;
+            }
+
+
+            .register-form-section {
+
+                padding: 40px 30px;
+            }
+        }
+
+
+        @media (max-width: 450px) {
+
+            .register-page {
+
+                padding: 30px 12px;
+            }
+
+
+            .register-info {
+
+                padding: 30px 25px;
+            }
+
+
+            .register-form-section {
+
+                padding: 35px 22px;
+            }
+
+
+            .register-info h1 {
+
+                font-size: 28px;
+            }
+
+
+            .register-heading h2 {
+
+                font-size: 27px;
+            }
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
+
     <nav class="navbar">
 
+
         <div class="logo">
-    <img src="images/logo.png" alt="SmartTravel Logo">
-    <span class="brand-text">Smart<span>Travel</span></span>
+    <div class="logo-image"></div>
+    Smart<span>Travel</span>
 </div>
 
+
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="packages.html">Packages</a></li>
-            <li><a href="booking.html">Book Now</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="register.html" class="nav-btn">Register</a></li>
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="packages.html">
+                    Packages
+                </a>
+            </li>
+
+            <li>
+                <a href="booking.html">
+                    Book Now
+                </a>
+            </li>
+
+            <li>
+                <a href="login.html">
+                    Login
+                </a>
+            </li>
+
+            <li>
+                <a
+                    href="register.html"
+                    class="nav-btn">
+
+                    Register
+
+                </a>
+            </li>
+
         </ul>
 
     </nav>
+
 </header>
 
 
+
+<!-- =========================
+     REGISTER SECTION
+========================= -->
+
 <section class="register-page">
 
-    <div class="section-title">
-        <p>CREATE ACCOUNT</p>
-        <h2>Register With Smart Travel</h2>
+
+    <div class="register-container">
+
+
+        <!-- =========================
+             LEFT SIDE
+        ========================= -->
+
+        <div class="register-info">
+
+
+            <h1>
+
+                Start your journey with
+
+                <span>
+                    SmartTravel
+                </span>
+
+            </h1>
+
+
+            <p>
+
+                Create your account to explore exciting
+                destinations, book amazing tour packages
+                and manage your trips easily.
+
+            </p>
+
+
+            <div class="travel-features">
+
+
+                <div class="travel-feature">
+
+                    <div class="feature-icon">
+                        🌍
+                    </div>
+
+                    <span>
+                        Explore amazing destinations
+                    </span>
+
+                </div>
+
+
+                <div class="travel-feature">
+
+                    <div class="feature-icon">
+                        ✈️
+                    </div>
+
+                    <span>
+                        Book your favourite tour packages
+                    </span>
+
+                </div>
+
+
+                <div class="travel-feature">
+
+                    <div class="feature-icon">
+                        🔒
+                    </div>
+
+                    <span>
+                        Manage your bookings easily
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             RIGHT SIDE
+        ========================= -->
+
+        <div class="register-form-section">
+
+
+            <div class="register-heading">
+
+
+                <div class="small-title">
+
+                    CREATE ACCOUNT
+
+                </div>
+
+
+                <h2>
+
+                    Join SmartTravel
+
+                </h2>
+
+
+                <p>
+
+                    Create your account to start exploring.
+
+                </p>
+
+
+            </div>
+
+
+
+            <form id="registerForm">
+
+
+                <!-- NAME -->
+
+                <div class="register-form-group">
+
+
+                    <label for="name">
+
+                        Full Name
+
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+
+                        <input
+                            type="text"
+                            id="name"
+                            class="register-input"
+                            placeholder="Enter your full name"
+                            required>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="register-form-group">
+
+
+                    <label for="email">
+
+                        Email Address
+
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+
+                        <span class="input-icon">
+                            ✉
+                        </span>
+
+
+                        <input
+                            type="email"
+                            id="email"
+                            class="register-input"
+                            placeholder="Enter your email"
+                            required>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="register-form-group">
+
+
+                    <label for="password">
+
+                        Password
+
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+
+                        <input
+                            type="password"
+                            id="password"
+                            class="register-input"
+                            placeholder="Create a password"
+                            required>
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('password', this)"
+                            aria-label="Show password">
+
+                            👁
+
+                        </button>
+
+
+                    </div>
+
+
+                    <div class="password-hint">
+
+                        Use at least 6 characters.
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="register-form-group">
+
+
+                    <label for="confirmPassword">
+
+                        Confirm Password
+
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            class="register-input"
+                            placeholder="Re-enter your password"
+                            required>
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('confirmPassword', this)"
+                            aria-label="Show password">
+
+                            👁
+
+                        </button>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- REGISTER BUTTON -->
+
+                <button
+                    type="submit"
+                    class="register-button"
+                    id="registerButton">
+
+                    Create My Account
+
+                </button>
+
+
+            </form>
+
+
+
+            <div id="message"></div>
+
+
+
+            <div class="login-text">
+
+                Already have an account?
+
+                <a href="login.html">
+
+                    Login here
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
     </div>
 
-    <div class="register-box">
-
-        <h2>Create Your Account</h2>
-
-        <form id="registerForm">
-
-            <div class="form-group">
-
-                <label>Full Name</label>
-
-                <input
-                    type="text"
-                    id="name"
-                    placeholder="Enter your full name"
-                    required>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>Email</label>
-
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                    required>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>Password</label>
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Create a password"
-                    required>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="register-btn">
-
-                Create Account
-
-            </button>
-
-        </form>
-
-        <div id="message"></div>
-
-    </div>
 
 </section>
 
 
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
+
 
     <div class="footer-content">
 
+
         <div>
+
 
             <h2>
+
                 Smart<span>Travel</span>
+
             </h2>
 
+
             <p>
+
                 Your smart companion for planning and booking
                 unforgettable journeys.
+
             </p>
 
+
         </div>
+
+
 
         <div>
 
-            <h3>Quick Links</h3>
 
-            <a href="index.html">Home</a>
-            <a href="packages.html">Packages</a>
-            <a href="booking.html">Booking</a>
-            <a href="login.html">Login</a>
+            <h3>
+
+                Quick Links
+
+            </h3>
+
+
+            <a href="index.html">
+                Home
+            </a>
+
+
+            <a href="packages.html">
+                Packages
+            </a>
+
+
+            <a href="booking.html">
+                Booking
+            </a>
+
+
+            <a href="login.html">
+                Login
+            </a>
+
 
         </div>
 
+
     </div>
 
+
+
     <div class="copyright">
+
         © 2026 Smart Travel & Tourism Management System
+
     </div>
+
 
 </footer>
 
 
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
 <script>
 
-    document.getElementById("registerForm")
-        .addEventListener("submit", function(event) {
 
-            event.preventDefault();
+/* =========================
+   SHOW / HIDE PASSWORD
+========================= */
 
-            const user = {
-
-                name:
-                    document.getElementById("name").value,
-
-                email:
-                    document.getElementById("email").value,
-
-                password:
-                    document.getElementById("password").value,
-
-                role:
-                    "USER"
-            };
+function togglePassword(id, button) {
 
 
-            fetch(
-                "http://localhost:8080/api/users",
-                {
-                    method: "POST",
+    const password =
+        document.getElementById(id);
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
 
-                    body:
-                        JSON.stringify(user)
-                }
-            )
+    if (password.type === "password") {
 
-            .then(response => {
 
-                if (!response.ok) {
-                    throw new Error(
-                        "Registration failed"
-                    );
-                }
+        password.type = "text";
 
-                return response.json();
+        button.innerHTML = "🙈";
 
-            })
 
-            .then(data => {
+    } else {
 
-                document.getElementById(
-                    "message"
-                ).innerHTML =
-                    "✅ Registration successful!";
 
-                document.getElementById(
-                    "registerForm"
-                ).reset();
+        password.type = "password";
 
-            })
+        button.innerHTML = "👁";
 
-            .catch(error => {
+    }
 
-                console.error(error);
+}
 
-                document.getElementById(
-                    "message"
-                ).innerHTML =
-                    "❌ Registration failed. Please try again.";
 
-            });
+
+/* =========================
+   REGISTER
+========================= */
+
+document
+    .getElementById("registerForm")
+    .addEventListener("submit", function(event) {
+
+
+        event.preventDefault();
+
+
+        const name =
+            document
+                .getElementById("name")
+                .value
+                .trim();
+
+
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim();
+
+
+        const password =
+            document
+                .getElementById("password")
+                .value;
+
+
+        const confirmPassword =
+            document
+                .getElementById("confirmPassword")
+                .value;
+
+
+        const message =
+            document.getElementById("message");
+
+
+        const registerButton =
+            document.getElementById("registerButton");
+
+
+
+        /* =========================
+           PASSWORD LENGTH
+        ========================= */
+
+        if (password.length < 6) {
+
+
+            message.style.color = "#d9534f";
+
+
+            message.innerHTML =
+                "❌ Password must be at least 6 characters.";
+
+
+            return;
+
+        }
+
+
+
+        /* =========================
+           PASSWORD MATCH
+        ========================= */
+
+        if (password !== confirmPassword) {
+
+
+            message.style.color = "#d9534f";
+
+
+            message.innerHTML =
+                "❌ Passwords do not match.";
+
+
+            return;
+
+        }
+
+
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        message.style.color = "#555";
+
+
+        message.innerHTML =
+            "Creating your account...";
+
+
+        registerButton.disabled = true;
+
+
+        registerButton.innerHTML =
+            "Creating Account...";
+
+
+
+        /* =========================
+           USER DATA
+        ========================= */
+
+        const user = {
+
+
+            name: name,
+
+
+            email: email,
+
+
+            password: password,
+
+
+            role: "USER"
+
+
+        };
+
+
+
+        /* =========================
+           SEND TO JAVA BACKEND
+        ========================= */
+
+        fetch(
+            "http://localhost:8080/api/users",
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:
+                    JSON.stringify(user)
+
+            }
+        )
+
+
+        .then(response => {
+
+
+            if (!response.ok) {
+
+
+                throw new Error(
+                    "Registration failed"
+                );
+
+            }
+
+
+            return response.json();
+
+        })
+
+
+        .then(data => {
+
+
+            message.style.color =
+                "green";
+
+
+            message.innerHTML =
+                "✅ Registration successful! Redirecting to login...";
+
+
+            registerButton.innerHTML =
+                "Account Created ✓";
+
+
+            document
+                .getElementById("registerForm")
+                .reset();
+
+
+
+            setTimeout(() => {
+
+
+                window.location.href =
+                    "login.html";
+
+
+            }, 1500);
+
+
+        })
+
+
+        .catch(error => {
+
+
+            console.error(error);
+
+
+            message.style.color =
+                "#d9534f";
+
+
+            message.innerHTML =
+                "❌ Registration failed. Please try again.";
+
+
+            registerButton.disabled =
+                false;
+
+
+            registerButton.innerHTML =
+                "Create My Account";
+
 
         });
 
+
+    });
+
+
 </script>
 
+
 </body>
+
 </html>

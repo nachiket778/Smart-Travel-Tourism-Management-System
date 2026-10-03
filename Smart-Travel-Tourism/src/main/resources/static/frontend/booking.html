@@ -88,12 +88,10 @@
 
 <header>
     <nav class="navbar">
-
-       <div class="logo">
-    <img src="images/logo.png" alt="SmartTravel Logo">
-    <span class="brand-text">Smart<span>Travel</span></span>
+<div class="logo">
+    <div class="logo-image"></div>
+    Smart<span>Travel</span>
 </div>
-
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="packages.html">Packages</a></li>
@@ -136,33 +134,11 @@
 
                 <label>Tour Package</label>
 
-                <select id="packageName" required>
-
-                    <option value="">
-                        Select Package
-                    </option>
-
-                    <option value="Goa Beach Escape"
-                            data-price="7999">
-                        Goa Beach Escape - ₹7,999
-                    </option>
-
-                    <option value="Manali Adventure Trip"
-                            data-price="9999">
-                        Manali Adventure Trip - ₹9,999
-                    </option>
-
-                    <option value="Dubai City Tour"
-                            data-price="24999">
-                        Dubai City Tour - ₹24,999
-                    </option>
-
-                    <option value="Andaman Island Holiday"
-                            data-price="19999">
-                        Andaman Island Holiday - ₹19,999
-                    </option>
-
-                </select>
+               <select id="packageName" required>
+    <option value="">
+        Select Package
+    </option>
+</select>
 
             </div>
 
@@ -203,6 +179,41 @@
 
             </div>
 
+   <div class="form-group">
+
+    <label>Payment Method</label>
+
+    <select id="paymentMethod" required>
+
+        <option value="">
+            Select Payment Method
+        </option>
+
+        <option value="UPI">
+            UPI
+        </option>
+
+        <option value="Google Pay">
+            Google Pay
+        </option>
+
+        <option value="Debit/Credit Card">
+            Debit / Credit Card
+        </option>
+
+        <option value="Net Banking">
+            Net Banking
+        </option>
+
+        <option value="Cash on Travel">
+            Cash on Travel
+        </option>
+
+    </select>
+
+</div>
+
+<div id="paymentDetails"></div>
 
             <button
                 type="submit"
@@ -269,6 +280,108 @@
 
     const totalAmount =
         document.getElementById("totalAmount");
+
+    const paymentMethod =
+    document.getElementById("paymentMethod");
+
+    const paymentDetails =
+    document.getElementById("paymentDetails");
+
+    fetch("http://localhost:8080/api/packages")
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Unable to load packages");
+        }
+        return response.json();
+    })
+    .then(packages => {
+
+        packages.forEach(pkg => {
+
+            const option = document.createElement("option");
+
+            option.value = pkg.packageName;
+            option.dataset.price = pkg.price;
+
+            option.textContent =
+                pkg.packageName + " - ₹" +
+                Number(pkg.price).toLocaleString("en-IN");
+
+            packageSelect.appendChild(option);
+        });
+
+    })
+    .catch(error => {
+        console.error(error);
+
+        packageSelect.innerHTML =
+            '<option value="">Unable to load packages</option>';
+    });
+
+
+    paymentMethod.addEventListener("change", function () {
+
+    const method = paymentMethod.value;
+
+    paymentDetails.innerHTML = "";
+
+    if (method === "UPI" || method === "Google Pay") {
+
+        paymentDetails.innerHTML = `
+            <div class="form-group">
+                <label>UPI ID</label>
+                <input
+                    type="text"
+                    placeholder="example@upi"
+                    required>
+            </div>
+        `;
+
+    }
+
+    else if (method === "Debit/Credit Card") {
+
+        paymentDetails.innerHTML = `
+            <div class="form-group">
+                <label>Card Number</label>
+                <input
+                    type="text"
+                    placeholder="Demo Card Number"
+                    maxlength="16"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Card Holder Name</label>
+                <input
+                    type="text"
+                    placeholder="Demo User"
+                    required>
+            </div>
+        `;
+
+    }
+
+    else if (method === "Net Banking") {
+
+        paymentDetails.innerHTML = `
+            <div class="form-group">
+                <label>Select Bank</label>
+
+                <select required>
+                    <option value="">Select Bank</option>
+                    <option>SBI</option>
+                    <option>HDFC Bank</option>
+                    <option>ICICI Bank</option>
+                    <option>Bank of Baroda</option>
+                    <option>Axis Bank</option>
+                </select>
+            </div>
+        `;
+
+    }
+
+});
 
 
     function calculateTotal() {
@@ -337,8 +450,15 @@
                     ) *
                     Number(peopleInput.value),
 
-                status:
-                    "CONFIRMED"
+                status: "CONFIRMED",
+
+     paymentMethod:
+    document.getElementById("paymentMethod").value,
+
+      paymentStatus:
+    document.getElementById("paymentMethod").value === "Cash on Travel"
+        ? "PENDING"
+        : "PAID"
             };
 
 
@@ -380,6 +500,8 @@
                 document.getElementById(
                     "bookingForm"
                 ).reset();
+                
+                paymentDetails.innerHTML = "";
 
                 totalAmount.innerText =
                     "₹0";

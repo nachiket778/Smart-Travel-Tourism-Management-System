@@ -23,4 +23,15 @@ public class BookingController {
     public Booking createBooking(@RequestBody Booking booking) {
         return repository.save(booking);
     }
+
+    @PutMapping("/{id}/cancel")
+    public Booking cancelBooking(@PathVariable Long id) {
+
+        Booking booking = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        booking.setStatus("CANCELLED");
+
+        return repository.save(booking);
+    }
 }

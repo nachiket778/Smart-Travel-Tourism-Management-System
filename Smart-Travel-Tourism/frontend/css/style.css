@@ -10,7 +10,9 @@ body {
     background: #fff;
 }
 
-/* NAVBAR */
+/* =========================
+   NAVBAR
+========================= */
 
 header {
     background: white;
@@ -65,14 +67,43 @@ footer span {
     border-radius: 7px;
 }
 
-/* HERO */
+/* =========================
+   LOGO
+========================= */
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    white-space: nowrap;
+    font-size: 27px;
+    font-weight: 700;
+    color: #222;
+}
+
+.logo-image {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #1688e5, #0b5fa5);
+    flex-shrink: 0;
+}
+
+
+/* =========================
+   HERO
+========================= */
 
 .hero {
     min-height: 560px;
     display: flex;
     align-items: center;
+
     background:
-        linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)),
+        linear-gradient(
+            rgba(0,0,0,0.42),
+            rgba(0,0,0,0.42)
+        ),
         url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80")
         center/cover;
 }
@@ -131,12 +162,16 @@ footer span {
     color: #1688e5;
 }
 
-/* SEARCH */
+
+/* =========================
+   SEARCH
+========================= */
 
 .search-section {
     margin-top: -45px;
     position: relative;
     padding: 0 20px;
+    z-index: 10;
 }
 
 .search-box {
@@ -144,8 +179,11 @@ footer span {
     margin: auto;
     background: white;
     padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    border-radius: 14px;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.15);
+
     display: flex;
     gap: 20px;
     align-items: end;
@@ -159,26 +197,54 @@ footer span {
     display: block;
     font-weight: bold;
     margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
 }
 
 .search-item input {
     width: 100%;
-    padding: 13px;
+    height: 48px;
+    padding: 13px 14px;
+
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 8px;
+
+    outline: none;
+    font-size: 14px;
+    background: #fff;
+}
+
+.search-item input:focus {
+    border-color: #1688e5;
+    box-shadow: 0 0 0 3px rgba(22,136,229,0.10);
 }
 
 .search-btn {
+    height: 48px;
+
     border: none;
     background: #1688e5;
     color: white;
-    padding: 14px 25px;
-    border-radius: 6px;
+
+    padding: 0 28px;
+    border-radius: 8px;
+
     cursor: pointer;
     font-weight: bold;
+    font-size: 15px;
+
+    transition: 0.2s;
 }
 
-/* SECTIONS */
+.search-btn:hover {
+    background: #0b72c5;
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
 
 .destinations,
 .features {
@@ -204,7 +270,10 @@ footer span {
     margin-top: 10px;
 }
 
-/* DESTINATION CARDS */
+
+/* =========================
+   DESTINATION CARDS
+========================= */
 
 .destination-grid {
     display: grid;
@@ -216,7 +285,10 @@ footer span {
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,0.1);
+
     transition: 0.3s;
 }
 
@@ -228,6 +300,7 @@ footer span {
     height: 220px;
     background-size: cover;
     background-position: center;
+
     display: flex;
     align-items: end;
     padding: 20px;
@@ -239,33 +312,133 @@ footer span {
     font-weight: bold;
 }
 
+
+/* GOA */
+
 .goa {
     background-image:
-        linear-gradient(transparent, rgba(0,0,0,0.65)),
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,0.65)
+        ),
         url("https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80");
+
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
 }
+
+
+/* MANALI */
 
 .manali {
     background-image:
-        linear-gradient(transparent, rgba(0,0,0,0.65)),
-        url("https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80");
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,0.20),
+            rgba(0,0,0,0.65)
+        ),
+        url("https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=800&q=80");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
+
+
+/* DUBAI */
 
 .dubai {
     background-image:
-        linear-gradient(transparent, rgba(0,0,0,0.65)),
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,0.65)
+        ),
         url("https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80");
+
+    background-size: cover;
+    background-position: center;
 }
+
+
+/* ANDAMAN */
 
 .andaman {
     background-image:
-        linear-gradient(transparent, rgba(0,0,0,0.65)),
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,0.65)
+        ),
         url("https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80");
+
+    background-size: cover;
+    background-position: center;
 }
+
+
+/* JAIPUR */
+
+.jaipur {
+    background-image:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,0.65)
+        ),
+        url("https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=800&q=80");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* KASHMIR */
+
+.kashmir {
+    background-image:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,0.65)
+        ),
+        url("https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* KERALA */
+
+.kerala {
+    background-image:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,0.65)
+        ),
+        url("https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=800&q=80");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* PARIS */
+
+.paris {
+    background-image:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,0.65)
+        ),
+        url("https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 
 .card-content {
     padding: 20px;
@@ -288,7 +461,10 @@ footer span {
     font-weight: bold;
 }
 
-/* FEATURES */
+
+/* =========================
+   FEATURES
+========================= */
 
 .features {
     background: #f7fbff;
@@ -324,7 +500,10 @@ footer span {
     line-height: 1.5;
 }
 
-/* FOOTER */
+
+/* =========================
+   FOOTER
+========================= */
 
 footer {
     background: #101820;
@@ -368,7 +547,260 @@ footer {
     font-size: 14px;
 }
 
-/* MOBILE */
+
+/* =========================
+   CHAT SUPPORT
+========================= */
+
+.chat-button {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    width: 58px;
+    height: 58px;
+
+    background: #1688e5;
+    color: white;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 20px rgba(22,136,229,0.35);
+
+    z-index: 2000;
+
+    transition: 0.2s;
+}
+
+.chat-button:hover {
+    transform: scale(1.06);
+    background: #0b72c5;
+}
+
+
+/* CHAT WINDOW */
+
+.chat-box {
+    position: fixed;
+
+    right: 25px;
+    bottom: 95px;
+
+    width: 350px;
+    height: 470px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.20);
+
+    overflow: hidden;
+
+    display: none;
+    flex-direction: column;
+
+    z-index: 1999;
+}
+
+
+/* CHAT HEADER */
+
+.chat-header {
+    background: #1688e5;
+    color: white;
+
+    padding: 16px 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-header strong {
+    display: block;
+    font-size: 16px;
+}
+
+.chat-header small {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.chat-header button {
+    border: none;
+    background: transparent;
+
+    color: white;
+
+    font-size: 25px;
+    cursor: pointer;
+}
+
+
+/* CHAT MESSAGES */
+
+.chat-messages {
+    flex: 1;
+
+    padding: 18px;
+
+    overflow-y: auto;
+
+    background: #f7f9fc;
+}
+
+.bot-message {
+    width: fit-content;
+    max-width: 85%;
+
+    background: white;
+
+    padding: 11px 13px;
+
+    border-radius: 12px 12px 12px 3px;
+
+    margin-bottom: 12px;
+
+    color: #333;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    box-shadow:
+        0 2px 6px rgba(0,0,0,0.06);
+}
+
+.user-message {
+    width: fit-content;
+    max-width: 85%;
+
+    margin-left: auto;
+    margin-bottom: 12px;
+
+    background: #1688e5;
+
+    color: white;
+
+    padding: 11px 13px;
+
+    border-radius: 12px 12px 3px 12px;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* QUICK OPTIONS */
+
+.quick-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    margin-top: 12px;
+}
+
+.quick-options button {
+    background: white;
+
+    border: 1px solid #dce3eb;
+
+    color: #1688e5;
+
+    padding: 9px 12px;
+
+    border-radius: 8px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    transition: 0.2s;
+}
+
+.quick-options button:hover {
+    background: #eef7ff;
+    border-color: #1688e5;
+}
+
+
+/* CHAT INPUT */
+
+.chat-input {
+    display: flex;
+
+    padding: 12px;
+
+    background: white;
+
+    border-top: 1px solid #eee;
+
+    gap: 8px;
+}
+
+.chat-input input {
+    flex: 1;
+
+    height: 42px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    padding: 0 12px;
+
+    outline: none;
+
+    font-size: 13px;
+}
+
+.chat-input input:focus {
+    border-color: #1688e5;
+}
+
+.chat-input button {
+    width: 42px;
+    height: 42px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #1688e5;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 18px;
+}
+
+.chat-input button:hover {
+    background: #0b72c5;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 900px) {
 
@@ -385,47 +817,247 @@ footer {
     .hero h1 {
         font-size: 48px;
     }
+
 }
 
-@media (max-width: 600px) {
 
-    .nav-links {
-        gap: 10px;
-        font-size: 12px;
+@media (max-width: 600px) {
+    ...
+    .chat-button {
+        right: 15px;
+        bottom: 15px;
+    }
+}
+
+/* =========================
+   EXTRA RESPONSIVE FIX
+========================= */
+
+/* Large screens */
+@media (min-width: 1201px) {
+    .navbar {
+        max-width: 1200px;
     }
 
-    .destination-grid,
+    .hero-content {
+        max-width: 1200px;
+    }
+}
+
+
+/* Laptop / Zoom 125% - 150% */
+@media (max-width: 1200px) {
+
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .nav-links {
+        gap: 18px;
+    }
+
+    .destination-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero h1 {
+        font-size: 55px;
+    }
+
+}
+
+
+/* Smaller screen / High browser zoom */
+@media (max-width: 900px) {
+
+    .navbar {
+        height: auto;
+        min-height: 70px;
+        padding: 15px 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 18px;
+    }
+
+    .hero {
+        min-height: 500px;
+    }
+
+    .hero-content {
+        padding: 40px 25px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .search-box {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-btn {
+        width: 100%;
+    }
+
+    .destination-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* Tablet / Very high zoom */
+@media (max-width: 700px) {
+
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        width: 100%;
+    }
+
+    .hero {
+        min-height: 480px;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .hero-content > p:not(.small-title) {
+        font-size: 16px;
+    }
+
+    .hero-buttons {
+        flex-wrap: wrap;
+    }
+
+    .destination-grid {
+        grid-template-columns: 1fr;
+    }
+
     .feature-grid {
         grid-template-columns: 1fr;
     }
 
+    .section-title h2 {
+        font-size: 30px;
+    }
+
+}
+
+
+/* Mobile */
+@media (max-width: 500px) {
+
+    .navbar {
+        padding: 12px 15px;
+    }
+
+    .navbar .logo {
+        font-size: 23px;
+    }
+
+    .logo-image {
+        width: 38px;
+        height: 38px;
+    }
+
+    .nav-links {
+        gap: 8px 12px;
+        font-size: 11px;
+    }
+
+    .nav-btn {
+        padding: 8px 12px;
+    }
+
+    .hero {
+        min-height: 450px;
+    }
+
+    .hero-content {
+        padding: 30px 20px;
+    }
+
     .hero h1 {
-        font-size: 40px;
+        font-size: 36px;
     }
 
-    .footer-content {
-        flex-direction: column;
+    .small-title {
+        font-size: 11px;
+        letter-spacing: 2px;
     }
-/* SmartTravel Header Logo */
 
-.logo {
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    white-space: nowrap !important;
+    .search-section {
+        margin-top: -25px;
+    }
+
+    .destinations,
+    .features {
+        padding: 55px 18px;
+    }
+
+    .section-title h2 {
+        font-size: 27px;
+    }
+
+    .chat-box {
+        width: calc(100% - 30px);
+        right: 15px;
+    }
+
 }
 
-.logo img {
-    width: 32px !important;
-    height: 32px !important;
-    object-fit: contain !important;
-    display: block !important;
-    flex-shrink: 0 !important;
+/* SMARTTRAVEL ST LOGO */
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    white-space: nowrap;
+    font-size: 27px;
+    font-weight: 700;
+    color: #222;
 }
 
-.logo > span {
-    display: inline-block !important;
-    line-height: 1 !important;
-    white-space: nowrap !important;
+.logo-image {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #1688e5;
+    position: relative;
+    flex-shrink: 0;
 }
+
+.logo-image::before {
+    content: "S";
+    position: absolute;
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    left: 8px;
+    top: 8px;
+}
+
+.logo-image::after {
+    content: "T";
+    position: absolute;
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    right: 7px;
+    bottom: 6px;
 }
