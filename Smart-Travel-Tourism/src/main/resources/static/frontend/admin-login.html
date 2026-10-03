@@ -71,10 +71,7 @@
 
 <header>
     <nav class="navbar">
-        <div class="logo">
-    <div class="logo-image"></div>
-    Smart<span>Travel</span>
-</div>
+        <div class="logo">Smart<span>Travel</span></div>
 
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
@@ -173,8 +170,7 @@ document.getElementById("adminLoginForm")
 
     };
 
-    fetch("http://localhost:8080/api/users/login", {
-
+    fetch("/api/users/login", {
         method: "POST",
 
         headers: {
@@ -198,7 +194,9 @@ document.getElementById("adminLoginForm")
         window.location.href = "admin.html";
     }, 500);
 
-} else {
+} 
+else 
+{
 
     document.getElementById("message").innerHTML =
         "❌ Invalid admin credentials.";
