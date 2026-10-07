@@ -151,6 +151,9 @@
                     type="date"
                     id="travelDate"
                     required>
+<div id="availabilityMessage"
+     style="margin-top:10px; font-weight:bold; text-align:center;">
+</div>
 
             </div>
 
@@ -191,10 +194,6 @@
 
         <option value="UPI">
             UPI
-        </option>
-
-        <option value="Google Pay">
-            Google Pay
         </option>
 
         <option value="Debit/Credit Card">
@@ -282,107 +281,164 @@
         document.getElementById("totalAmount");
 
     const paymentMethod =
-    document.getElementById("paymentMethod");
+        document.getElementById("paymentMethod");
 
     const paymentDetails =
-    document.getElementById("paymentDetails");
+        document.getElementById("paymentDetails");
+
+    const travelDate =
+        document.getElementById("travelDate");
+
+    const availabilityMessage =
+        document.getElementById("availabilityMessage");
+
+    let availableSlots = 0;
+
+
+    // =========================
+    // LOAD PACKAGES
+    // =========================
 
     fetch("/api/packages")
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Unable to load packages");
-        }
-        return response.json();
-    })
-    .then(packages => {
+        .then(response => {
 
-        packages.forEach(pkg => {
+            if (!response.ok) {
+                throw new Error("Unable to load packages");
+            }
 
-            const option = document.createElement("option");
+            return response.json();
+        })
 
-            option.value = pkg.packageName;
-            option.dataset.price = pkg.price;
+        .then(packages => {
 
-            option.textContent =
-                pkg.packageName + " - ₹" +
-                Number(pkg.price).toLocaleString("en-IN");
+            packages.forEach(pkg => {
 
-            packageSelect.appendChild(option);
+                const option =
+                    document.createElement("option");
+
+                option.value = pkg.packageName;
+
+                // Package ID for availability check
+                option.dataset.id = pkg.id;
+
+                // Package price
+                option.dataset.price = pkg.price;
+
+                option.textContent =
+                    pkg.packageName +
+                    " - ₹" +
+                    Number(pkg.price)
+                        .toLocaleString("en-IN");
+
+                packageSelect.appendChild(option);
+            });
+
+        })
+
+        .catch(error => {
+
+            console.error(error);
+
+            packageSelect.innerHTML =
+                '<option value="">Unable to load packages</option>';
         });
 
-    })
-    .catch(error => {
-        console.error(error);
 
-        packageSelect.innerHTML =
-            '<option value="">Unable to load packages</option>';
-    });
+    // =========================
+    // PAYMENT METHOD
+    // =========================
+
+    paymentMethod.addEventListener(
+        "change",
+        function () {
+
+            const method =
+                paymentMethod.value;
+
+            paymentDetails.innerHTML = "";
 
 
-    paymentMethod.addEventListener("change", function () {
+            // UPI
+            if (method === "UPI") {
 
-    const method = paymentMethod.value;
+                paymentDetails.innerHTML = `
+                    <div class="form-group">
 
-    paymentDetails.innerHTML = "";
+                        <label>UPI ID</label>
 
-    if (method === "UPI" || method === "Google Pay") {
+                        <input
+                            type="text"
+                            placeholder="example@upi"
+                            required>
 
-        paymentDetails.innerHTML = `
-            <div class="form-group">
-                <label>UPI ID</label>
-                <input
-                    type="text"
-                    placeholder="example@upi"
-                    required>
-            </div>
-        `;
+                    </div>
+                `;
+            }
 
-    }
 
-    else if (method === "Debit/Credit Card") {
+            // CARD
+            else if (method === "Debit/Credit Card") {
 
-        paymentDetails.innerHTML = `
-            <div class="form-group">
-                <label>Card Number</label>
-                <input
-                    type="text"
-                    placeholder="Demo Card Number"
-                    maxlength="16"
-                    required>
-            </div>
+                paymentDetails.innerHTML = `
+                    <div class="form-group">
 
-            <div class="form-group">
-                <label>Card Holder Name</label>
-                <input
-                    type="text"
-                    placeholder="Demo User"
-                    required>
-            </div>
-        `;
+                        <label>Card Number</label>
 
-    }
+                        <input
+                            type="text"
+                            placeholder="Demo Card Number"
+                            maxlength="16"
+                            required>
 
-    else if (method === "Net Banking") {
+                    </div>
 
-        paymentDetails.innerHTML = `
-            <div class="form-group">
-                <label>Select Bank</label>
+                    <div class="form-group">
 
-                <select required>
-                    <option value="">Select Bank</option>
-                    <option>SBI</option>
-                    <option>HDFC Bank</option>
-                    <option>ICICI Bank</option>
-                    <option>Bank of Baroda</option>
-                    <option>Axis Bank</option>
-                </select>
-            </div>
-        `;
+                        <label>Card Holder Name</label>
 
-    }
+                        <input
+                            type="text"
+                            placeholder="Demo User"
+                            required>
 
-});
+                    </div>
+                `;
+            }
 
+
+            // NET BANKING
+            else if (method === "Net Banking") {
+
+                paymentDetails.innerHTML = `
+                    <div class="form-group">
+
+                        <label>Select Bank</label>
+
+                        <select required>
+
+                            <option value="">
+                                Select Bank
+                            </option>
+
+                            <option>SBI</option>
+                            <option>HDFC Bank</option>
+                            <option>ICICI Bank</option>
+                            <option>Bank of Baroda</option>
+                            <option>Axis Bank</option>
+
+                        </select>
+
+                    </div>
+                `;
+            }
+
+        }
+    );
+
+
+    // =========================
+    // CALCULATE TOTAL
+    // =========================
 
     function calculateTotal() {
 
@@ -401,7 +457,8 @@
             price * people;
 
         totalAmount.innerText =
-            "₹" + total.toLocaleString("en-IN");
+            "₹" +
+            total.toLocaleString("en-IN");
     }
 
 
@@ -416,110 +473,281 @@
     );
 
 
-    document.getElementById("bookingForm")
-        .addEventListener("submit", function(event) {
+    // =========================
+    // CHECK AVAILABILITY
+    // =========================
 
-            event.preventDefault();
+    function checkAvailability() {
 
-            const booking = {
+        const selected =
+            packageSelect.options[
+                packageSelect.selectedIndex
+            ];
 
-                customerName:
-                    document.getElementById(
-                        "customerName"
-                    ).value,
+        const packageId =
+            selected.dataset.id;
 
-                packageName:
-                    packageSelect.value,
-
-                travelDate:
-                    document.getElementById(
-                        "travelDate"
-                    ).value,
-
-                numberOfPeople:
-                    Number(
-                        peopleInput.value
-                    ),
-
-                totalAmount:
-                    Number(
-                        packageSelect
-                        .options[
-                            packageSelect.selectedIndex
-                        ].dataset.price
-                    ) *
-                    Number(peopleInput.value),
-
-                status: "CONFIRMED",
-
-     paymentMethod:
-    document.getElementById("paymentMethod").value,
-
-      paymentStatus:
-    document.getElementById("paymentMethod").value === "Cash on Travel"
-        ? "PENDING"
-        : "PAID"
-            };
+        const date =
+            travelDate.value;
 
 
-            fetch(
-    "/api/bookings",
-                {
-                    method: "POST",
+        if (!packageId || !date) {
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
+            availabilityMessage.innerText = "";
 
-                    body:
-                        JSON.stringify(booking)
-                }
-            )
+            availableSlots = 0;
 
-            .then(response => {
+            return;
+        }
 
-                if (!response.ok) {
-                    throw new Error(
-                        "Booking failed"
-                    );
-                }
 
-                return response.json();
+        availabilityMessage.innerText =
+            "Checking availability...";
 
-            })
+        availabilityMessage.style.color =
+            "#1688e5";
 
-            .then(data => {
 
-                document.getElementById(
-                    "message"
-                ).innerHTML =
-                    "✅ Booking Confirmed! Booking ID: "
-                    + data.id;
+        fetch(
+            `/api/packages/${packageId}/availability?date=${date}`
+        )
 
-                document.getElementById(
-                    "bookingForm"
-                ).reset();
-                
-                paymentDetails.innerHTML = "";
+        .then(response => {
 
-                totalAmount.innerText =
-                    "₹0";
+            if (!response.ok) {
 
-            })
+                throw new Error(
+                    "Availability check failed"
+                );
+            }
 
-            .catch(error => {
+            return response.text();
+        })
 
-                console.error(error);
+        .then(result => {
 
-                document.getElementById(
-                    "message"
-                ).innerHTML =
-                    "❌ Booking failed. Please start the Java backend.";
+            const match =
+                result.match(
+                    /Available Slots:\s*(\d+)/
+                );
 
-            });
 
+            if (!match) {
+
+                throw new Error(
+                    "Invalid availability response"
+                );
+            }
+
+
+            availableSlots =
+                Number(match[1]);
+
+
+            if (availableSlots > 0) {
+
+                availabilityMessage.innerText =
+                    "✅ Available Slots: " +
+                    availableSlots;
+
+                availabilityMessage.style.color =
+                    "green";
+
+            }
+
+            else {
+
+                availabilityMessage.innerText =
+                    "❌ Not Available — Please select another date.";
+
+                availabilityMessage.style.color =
+                    "red";
+            }
+
+        })
+
+        .catch(error => {
+
+            console.error(error);
+
+            availabilityMessage.innerText =
+                "❌ Unable to check availability.";
+
+            availabilityMessage.style.color =
+                "red";
+
+            availableSlots = 0;
         });
+    }
+
+
+    packageSelect.addEventListener(
+        "change",
+        checkAvailability
+    );
+
+    travelDate.addEventListener(
+        "change",
+        checkAvailability
+    );
+
+
+    // =========================
+    // BOOKING SUBMIT
+    // =========================
+
+    document.getElementById("bookingForm")
+        .addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                // Check availability
+                if (availableSlots <= 0) {
+
+                    document.getElementById(
+                        "message"
+                    ).innerHTML =
+                        "❌ This date is not available. Please select another date.";
+
+                    return;
+                }
+
+
+                const requestedPeople =
+                    Number(peopleInput.value);
+
+
+                // Check requested people
+                if (
+                    requestedPeople >
+                    availableSlots
+                ) {
+
+                    document.getElementById(
+                        "message"
+                    ).innerHTML =
+                        "❌ Only " +
+                        availableSlots +
+                        " slot(s) are available for this date.";
+
+                    return;
+                }
+
+
+                // Create booking object
+                const booking = {
+
+                    customerName:
+                        document.getElementById(
+                            "customerName"
+                        ).value,
+
+                    packageName:
+                        packageSelect.value,
+
+                    travelDate:
+                        travelDate.value,
+
+                    numberOfPeople:
+                        requestedPeople,
+
+                    totalAmount:
+                        Number(
+                            packageSelect
+                                .options[
+                                    packageSelect
+                                        .selectedIndex
+                                ]
+                                .dataset.price
+                        ) *
+                        requestedPeople,
+
+                    status:
+                        "CONFIRMED",
+
+                    paymentMethod:
+                        paymentMethod.value,
+
+                    paymentStatus:
+                        paymentMethod.value ===
+                        "Cash on Travel"
+                            ? "PENDING"
+                            : "PAID"
+                };
+
+
+                // Send booking to backend
+                fetch(
+                    "/api/bookings",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(
+                                booking
+                            )
+                    }
+                )
+
+                .then(response => {
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            "Booking failed"
+                        );
+                    }
+
+                    return response.json();
+                })
+
+                .then(data => {
+
+                    document.getElementById(
+                        "message"
+                    ).innerHTML =
+                        "✅ Booking Confirmed! Booking ID: " +
+                        data.id;
+
+
+                    document.getElementById(
+                        "bookingForm"
+                    ).reset();
+
+
+                    paymentDetails.innerHTML =
+                        "";
+
+                    totalAmount.innerText =
+                        "₹0";
+
+
+                    availabilityMessage.innerText =
+                        "";
+
+                    availableSlots = 0;
+                })
+
+                .catch(error => {
+
+                    console.error(error);
+
+                    document.getElementById(
+                        "message"
+                    ).innerHTML =
+                        "❌ Booking failed. Please try again.";
+                });
+
+            }
+        );
 
 </script>
 

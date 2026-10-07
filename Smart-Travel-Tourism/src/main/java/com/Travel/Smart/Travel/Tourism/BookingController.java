@@ -1,6 +1,8 @@
 package com.Travel.Smart.Travel.Tourism;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -20,9 +22,33 @@ public class BookingController {
     }
 
     @PostMapping
-    public Booking createBooking(@RequestBody Booking booking) {
-        return repository.save(booking);
+public Booking createBooking(@RequestBody Booking booking) {
+
+    long bookedPeople =
+            repository.sumBookedPeople(
+                    booking.getPackageName(),
+                    booking.getTravelDate(),
+                    "CANCELLED"
+            );
+
+    long availableSlots = 20 - bookedPeople;
+
+    if (availableSlots < 0) {
+        availableSlots = 0;
     }
+
+    if (booking.getNumberOfPeople() > availableSlots) {
+
+        throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Only " + availableSlots +
+                " slot(s) are available for this date"
+        );
+    }
+
+    return repository.save(booking);
+}
+
 
     @PutMapping("/{id}/cancel")
     public Booking cancelBooking(@PathVariable Long id) {

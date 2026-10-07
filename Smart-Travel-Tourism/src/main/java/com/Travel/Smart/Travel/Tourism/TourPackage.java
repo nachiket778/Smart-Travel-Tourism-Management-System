@@ -17,6 +17,7 @@ public class TourPackage {
     private String duration;
     private double price;
     private String description;
+    private String category;
 
     public TourPackage() {
     }
@@ -72,5 +73,13 @@ public class TourPackage {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

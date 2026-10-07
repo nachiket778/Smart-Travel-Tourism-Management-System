@@ -4,49 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Bookings - Smart Travel</title>
+    <title>Tour Packages - Smart Travel</title>
 
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        .bookings-page {
-            max-width: 1100px;
+        .packages-page {
+            max-width: 1200px;
             margin: auto;
             padding: 70px 25px;
         }
 
-        .booking-card {
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .package-card {
             background: white;
-            padding: 25px;
-            margin-bottom: 20px;
             border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+            overflow: hidden;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+            transition: 0.3s;
         }
 
-        .booking-card h3 {
-            color: #1688e5;
-            margin-bottom: 15px;
+        .package-card:hover {
+            transform: translateY(-6px);
         }
 
-        .booking-card p {
-            margin: 8px 0;
-            color: #555;
+        .package-image {
+            height: 210px;
+            background-size: cover;
+            background-position: center;
         }
 
-        .status {
+        .package-content {
+            padding: 22px;
+        }
+
+        .package-content h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .package-content p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .package-category {
             display: inline-block;
-            margin-top: 10px;
-            padding: 7px 14px;
+            background: #eef6ff;
+            color: #1688e5;
+            padding: 5px 10px;
             border-radius: 20px;
-            background: #e8f7ee;
-            color: green;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .package-price {
+            color: #222;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .book-btn {
+            display: inline-block;
+            background: #1688e5;
+            color: white;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
             font-weight: bold;
         }
 
         .loading {
             text-align: center;
-            color: #777;
             font-size: 18px;
+            color: #777;
+        }
+
+        .error {
+            text-align: center;
+            color: red;
+            font-size: 18px;
+        }
+
+        @media (max-width: 900px) {
+            .package-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .package-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -55,38 +114,51 @@
 
 <header>
     <nav class="navbar">
-      <div class="logo">
-    <div class="logo-image"></div>
-    Smart<span>Travel</span>
-</div>
+
+        <div class="logo">
+            <div class="logo-image"></div>
+            Smart<span>Travel</span>
+        </div>
+
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="packages.html">Packages</a></li>
             <li><a href="booking.html">Book Now</a></li>
-            <li><a href="my-bookings.html">My Bookings</a></li>
             <li><a href="login.html">Login</a></li>
+            <li>
+                <a href="register.html" class="nav-btn">Register</a>
+            </li>
         </ul>
+
     </nav>
 </header>
 
-<section class="bookings-page">
+
+<section class="packages-page">
 
     <div class="section-title">
-        <p>MY TRAVEL BOOKINGS</p>
-        <h2>Your Bookings</h2>
+        <p>OUR TOUR PACKAGES</p>
+        <h2>Choose Your Perfect Trip</h2>
     </div>
 
-    <div id="bookingContainer">
-        <p class="loading">Loading bookings...</p>
+    <div id="packageContainer" class="package-grid">
+
+        <p class="loading">
+            Loading packages...
+        </p>
+
     </div>
 
 </section>
 
+
 <footer>
+
     <div class="footer-content">
 
         <div>
             <h2>Smart<span>Travel</span></h2>
+
             <p>
                 Your smart companion for planning and booking
                 unforgettable journeys.
@@ -95,6 +167,7 @@
 
         <div>
             <h3>Quick Links</h3>
+
             <a href="index.html">Home</a>
             <a href="packages.html">Packages</a>
             <a href="booking.html">Booking</a>
@@ -106,147 +179,366 @@
     <div class="copyright">
         © 2026 Smart Travel & Tourism Management System
     </div>
+
 </footer>
+
 
 <script>
 
-fetch("/api/bookings")
-.then(response => response.json())
+const searchParams = new URLSearchParams(window.location.search);
 
-.then(bookings => {
-
-    const container = document.getElementById("bookingContainer");
-
-    container.innerHTML = "";
-
-    if (bookings.length === 0) {
-
-        container.innerHTML =
-            "<p class='loading'>No bookings found.</p>";
-
-        return;
-    }
-
-    bookings.forEach(booking => {
-
-        container.innerHTML += `
-
-            <div class="booking-card">
-
-                <h3>Booking #${booking.id}</h3>
-
-                <p>
-                    <strong>Customer:</strong>
-                    ${booking.customerName}
-                </p>
-
-                <p>
-                    <strong>Package:</strong>
-                    ${booking.packageName}
-                </p>
-
-                <p>
-                    <strong>Travel Date:</strong>
-                    ${booking.travelDate}
-                </p>
-
-                <p>
-                    <strong>Number of People:</strong>
-                    ${booking.numberOfPeople}
-                </p>
-
-               <p>
-    <strong>Total Amount:</strong>
-    ₹${booking.totalAmount}
-</p>
-
-<p>
-    <strong>Payment Method:</strong>
-    ${booking.paymentMethod || "Not Available"}
-</p>
-
-<p>
-    <strong>Payment Status:</strong>
-    ${booking.paymentStatus || "Not Available"}
-</p>
-
-<span class="status">
-    ${booking.status}
-</span>
-<br><br>
-
-${
-    booking.status !== "CANCELLED"
-    ? `<button
-        onclick="cancelBooking(${booking.id})"
-        style="
-            background:#d9534f;
-            color:white;
-            border:none;
-            padding:10px 18px;
-            border-radius:7px;
-            cursor:pointer;
-            font-weight:bold;
-        ">
-        Cancel Booking
-       </button>`
-    : `<p style="color:#d9534f; font-weight:bold;">
-        Booking Cancelled
-       </p>`
-}
-
-            </div>
-
-        `;
-
-    });
-
-})
-
-.catch(error => {
-
-    console.error(error);
-
-    document.getElementById("bookingContainer").innerHTML =
-        "<p class='loading'>Unable to load bookings.</p>";
-
-});
+const searchText =
+    (searchParams.get("search") || "").trim().toLowerCase();
 
 
-function cancelBooking(id) {
+// ===============================
+// INDIVIDUAL PACKAGE IMAGE MAPPING
+// ===============================
 
-    if (!confirm("Are you sure you want to cancel this booking?")) {
-        return;
-    }
+const packageImages = {
 
-    fetch("/api/bookings/" + id + "/cancel", {
-    method: "PUT"
-})
+    // ===============================
+    // FAMOUS PLACES
+    // ===============================
+
+    15:
+        "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1000&q=85",
+
+    16:
+        "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85",
+
+    17:
+        "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1000&q=85",
+
+    18:
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=85",
+
+    19:
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85",
+
+
+    // ===============================
+    // TOP TEMPLES
+    // ===============================
+
+    20:
+        "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1000&q=85",
+
+    21:
+        "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1000&q=85",
+
+    22:
+        "https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?auto=format&fit=crop&w=1000&q=85",
+
+    23:
+        "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=1000&q=85",
+
+    24:
+        "https://images.unsplash.com/photo-1604608672516-f1b9a4e6b3d3?auto=format&fit=crop&w=1000&q=85",
+
+
+    // ===============================
+    // HISTORICAL PLACES
+    // ===============================
+
+    25:
+        "https://images.unsplash.com/photo-1524230572899-a752b3835840?auto=format&fit=crop&w=1000&q=85",
+
+    26:
+        "https://images.unsplash.com/photo-1595658658481-d53d3f999875?auto=format&fit=crop&w=1000&q=85",
+
+    27:
+        "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1000&q=85",
+
+    28:
+        "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1000&q=85",
+
+    29:
+        "https://images.unsplash.com/photo-1590077428593-a55bb07c4665?auto=format&fit=crop&w=1000&q=85",
+
+
+    // ===============================
+    // BEACHES
+    // ===============================
+
+    30:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=85",
+
+    31:
+        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1000&q=85",
+
+    32:
+        "https://images.unsplash.com/photo-1476673160081-cf065607f449?auto=format&fit=crop&w=1000&q=85",
+
+    33:
+        "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1000&q=85",
+
+    34:
+        "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1000&q=85",
+
+
+    // ===============================
+    // WILDLIFE & NATIONAL PARKS
+    // ===============================
+
+    35:
+        "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1000&q=85",
+
+    36:
+        "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85",
+
+    37:
+        "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1000&q=85",
+
+    38:
+        "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=1000&q=85",
+
+    39:
+        "https://images.unsplash.com/photo-1535338454770-8be927b5a00b?auto=format&fit=crop&w=1000&q=85",
+
+
+    // ===============================
+    // FARMHOUSE / PICNIC
+    // ===============================
+
+    40:
+        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=85",
+
+    41:
+        "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85",
+
+    42:
+        "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=1000&q=85",
+
+    43:
+        "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85",
+
+    44:
+        "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85"
+
+};
+
+
+// ===============================
+// FALLBACK IMAGE
+// ===============================
+
+const fallbackImage =
+    "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85";
+
+
+// ===============================
+// LOAD PACKAGES
+// ===============================
+
+fetch("/api/packages")
 
     .then(response => {
 
         if (!response.ok) {
-            throw new Error("Cancellation failed");
+            throw new Error("Failed to load packages");
         }
 
         return response.json();
+
     })
 
-    .then(data => {
+    .then(packages => {
 
-        alert("Booking cancelled successfully!");
+        const container =
+            document.getElementById("packageContainer");
 
-        location.reload();
+        container.innerHTML = "";
+
+
+        // ===============================
+        // SEARCH FILTER
+        // ===============================
+
+        const filteredPackages = searchText
+
+            ? packages.filter(pkg =>
+
+                (pkg.destination || "")
+                    .toLowerCase()
+                    .includes(searchText)
+
+                ||
+
+                (pkg.packageName || "")
+                    .toLowerCase()
+                    .includes(searchText)
+
+                ||
+
+                (pkg.category || "")
+                    .toLowerCase()
+                    .includes(searchText)
+
+            )
+
+            : packages;
+
+
+        // ===============================
+        // NO PACKAGES
+        // ===============================
+
+        if (filteredPackages.length === 0) {
+
+            container.innerHTML = `
+
+                <p class="error"
+                   style="grid-column: 1 / -1; color: #555;">
+
+                    No packages found for "${searchText}".
+
+                </p>
+
+            `;
+
+            return;
+        }
+
+
+        // ===============================
+        // CREATE PACKAGE CARDS
+        // ===============================
+
+        filteredPackages.forEach(pkg => {
+
+
+            // Get category
+
+            const category =
+                (pkg.category || "").trim();
+
+
+            // Get image according to PACKAGE ID
+
+            const image =
+                packageImages[pkg.id] || fallbackImage;
+
+
+            container.innerHTML += `
+
+                <div class="package-card">
+
+
+                    <!-- PACKAGE IMAGE -->
+
+                    <div
+                        class="package-image"
+                        style="
+                            background-image:
+                            url('${image}');
+                        ">
+                    </div>
+
+
+                    <!-- PACKAGE CONTENT -->
+
+                    <div class="package-content">
+
+
+                        <!-- CATEGORY -->
+
+                        <div class="package-category">
+
+                            ${category || "Tour Package"}
+
+                        </div>
+
+
+                        <!-- PACKAGE NAME -->
+
+                        <h3>
+
+                            ${pkg.packageName}
+
+                        </h3>
+
+
+                        <!-- DESTINATION -->
+
+                        <p>
+
+                            📍 ${pkg.destination}
+
+                        </p>
+
+
+                        <!-- DURATION -->
+
+                        <p>
+
+                            🕒 ${pkg.duration}
+
+                        </p>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <p>
+
+                            ${pkg.description}
+
+                        </p>
+
+
+                        <!-- PRICE -->
+
+                        <div class="package-price">
+
+                            ₹${Number(pkg.price)
+                                .toLocaleString('en-IN')}
+
+                        </div>
+
+
+                        <!-- BOOK BUTTON -->
+
+                        <a
+                            href="
+                                booking.html?package=
+                                ${encodeURIComponent(pkg.packageName)}
+                            "
+                            class="book-btn">
+
+                            Book Now
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
     })
 
     .catch(error => {
 
         console.error(error);
 
-        alert("Unable to cancel booking.");
+        document.getElementById("packageContainer")
+            .innerHTML = `
+
+                <p class="error">
+
+                    Unable to load packages.
+                    Please start the Java backend.
+
+                </p>
+
+            `;
+
     });
-}
 
 </script>
+
 </body>
 </html>
