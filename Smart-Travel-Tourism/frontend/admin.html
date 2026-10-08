@@ -318,7 +318,7 @@ document.getElementById("packageForm")
     };
 
 
-    let url = "http://localhost:8080/api/packages";
+   let url = "/api/packages";
     let method = "POST";
 
 
@@ -477,7 +477,7 @@ function loadPackages() {
 
 function editPackage(id) {
 
-    fetch("http://localhost:8080/api/packages/" + id)
+   fetch("/api/packages/" + id
 
     .then(response => {
 
@@ -545,8 +545,7 @@ function deletePackage(id) {
     }
 
 
-    fetch("http://localhost:8080/api/packages/" + id, {
-
+fetch("/api/packages/" + id, {
         method: "DELETE"
 
     })
