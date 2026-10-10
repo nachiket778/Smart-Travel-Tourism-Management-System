@@ -180,43 +180,42 @@ const searchText = (searchParams.get("search") || "").trim().toLowerCase();
 const container = document.getElementById("packageContainer");
 
 const imageMap = {
-
-    // 1. Famous Places
+    // Famous Places
     15: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2VxQJyPc1214Om5pCa3E9l0TbZhk1NG2bTxWBbQZixw&s=10",
     16: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaCes_BA26OBV2sIrH8Rao1sfY0LnNUKSj_GKvP8uhWw&s=10",
     17: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFs5WvOQPop2bYA4n6SEOYfFjfhTbFuk1v1YiEQKdIlg&s=10",
     18: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtGhNAd2ts1AVlIqm8qVm8ahPx6QW0p0n7149rfcYerw&s",
     19: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREAJcyrcZJKA-AP4mN6sT3e-x1MNbzPuoNLBfjvMG_9g&s=10",
 
-    // 2. Temples
+    // TOP Temples
     20: "https://commons.wikimedia.org/wiki/Special:FilePath/Shirdi_Sai_Baba_Samadhi.jpg",
     21: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ0f8bmiJhlyLIzlERB1sNYec7A0CBZYErsHIaLCAs3Q&s=10",
     22: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzlUy7jB6I4-CtBEeR-BTquP7vuEe1e3ozgdxoST37Q&s",
     23: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvfffVdMYW0ObPLUTN_ZBhbPfQlaa8Kt7VovDmslb88w&s=10",
     24: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaCa05PAyYzkhVuiyNkLbyqGkDI2SZM0wA9ohxkHBLBQ&s=10",
 
-    // 3. Historical Places
+    // Historical Places
     25: "https://commons.wikimedia.org/wiki/Special:FilePath/CSMT%2C_Mumbai.jpg",
     26: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqeJ5AmuZAP7fOuPJID01OTaDJXxYIzq5Zn1g_wA42gA&s=10",
     27: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWmIYrAtiI8vIW1ycs-bZ7tLO7BDJbzvTsCz4BOe0BRw&s=10",
     28: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWKFr7R3XR_ujGMk9Afih7Ke_vIC2lQCm8Fw7SNXFX5w&s=10",
     29: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaB9pphEukG86x6035YcXs9Cw2n20uFM2FxkMacaR3ng&s=10",
 
-    // 4. Beaches
+    // Beaches
     30: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHes1EJectFZ83wlye1v01G5u9KHWn3JqatAoEP1U2fQ&s=10",
     31: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyaydI89WMLe4p_9FD8MrRVDeqwyP6VUTKsKo0qE4gGw&s=10",
     32: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTewpJQTh2yas5t4x42fz3xcUJavVc8OKTs_QNmY8SSjw&s=10",
     33: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAytMJlfVJ9YOdXDYKW_e5F23-Awrs5PkeDHCSmq97TA&s=10",
     34: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZBrNhZU5cP-L8cBhiQg8-aKuAfLwkvFtaPrDnpwZjEg&s=10",
 
-    // 5. Wildlife
+    // Wildlife & National Parks
     35: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuB64BZC9Zd0nOvoCbeiaZnv1yZd_K8qdqdZtcF-Iftw&s=10",
     36: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdq-BSyZpC032WiVcyuWPhjNnRNNwiwaKRjbtLEg2LIA&s=10",
     37: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZFptiONVUKjvybdxcLMleDHpwXGtqXKRV-6EL31bOsA&s=10",
     38: "https://commons.wikimedia.org/wiki/Special:FilePath/Navegaon_National_Park%2CIndia.jpg",
     39: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHUN6YdOMn6Ub3_loqGJHAHv6TV3ESsUoUmlifU8LbaQ&s=10",
 
-    // 6. Farmhouse / Picnic
+    // Farmhouse / Picnic
     40: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStqmqrhVcd6allRiUMve94eHZfoAr5a5mRGa_rg-mc_Q&s=10",
     41: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE9F8kPwCTK1YqKlUEhdE2dztC6fqPK-y25YY3f2VrzQ&s=10",
     42: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHpQZOtBv7pufBaI18L_JKSYEBIFoXWUVPr-U4-U1TsQ&s=10",
@@ -302,9 +301,8 @@ const filteredPackages = searchText
 const displayPackages = filteredPackages;
         displayPackages.forEach(pkg => {
 
-            const image =
-                imageMap[pkg.id] ||
-                "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80";
+           const image = imageMap[pkg.id] ||
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80";
 
             container.innerHTML += `
                 <div class="package-card">
